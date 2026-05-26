@@ -2,30 +2,50 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Minecraft Compatible](https://img.shields.io/badge/minecraft-1.16--1.21%2B-success.svg)](https://www.minecraft.net/)
+[![Litematica Extension](https://img.shields.io/badge/litematica-supported-orange.svg)](https://www.curseforge.com/minecraft/mc-mods/litematica)
 [![UI Style](https://img.shields.io/badge/ui-Sun--Valley%20Dark-blurple.svg)](https://github.com/rinterdock/sv-ttk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Minecraft Material Manager e una applicazione desktop progettata per i giocatori tecnici, gli sviluppatori di mega-costruzioni e i creatori di progetti che necessitano di tracciare, organizzare e calcolare le risorse necessarie ai loro progetti in-game.
+Minecraft Material Manager e una applicazione desktop progettata specificamente per la comunita del technical Minecraft, per i creatori di mega-costruzioni e per chiunque utilizzi la mod Litematica per pianificare le proprie strutture in-game. 
 
-L'applicazione elimina la necessita di fogli di calcolo esterni, automatizzando il conteggio dei blocchi singoli e traducendo istantaneamente le unita di misura tipiche del gioco (Shulker Box e Stack) in valori numerici reali e viceversa.
+Quando si affrontano progetti su larga scala, la gestione dei materiali richiesti diventa complessa. Litematica fornisce l'elenco dei blocchi totali, ma non offre uno strumento dinamico per tracciare cio che si e gia raccolto rispetto a cio che manca, ne permette di calcolare i blocchi usando le unita di misura reali del gioco (Shulker Box e Stack). Questa applicazione risolve esattamente questo problema, automatizzando il calcolo delle risorse necessarie e interfacciandosi direttamente con i dati di Litematica.
 
 ---
 
 ## Funzionalita Principali
 
-* **Compilatore Matematico Minecraft-Shorthand:** Permette l'inserimento di quantita complesse usando le abbreviazioni native del gioco. Espressioni come "1sb + 12stk + 32" vengono valutate ed elaborate in tempo reale fornendo il conteggio esatto dei singoli blocchi. Supporta i formati "sb" (Shulker Box) e "stk" / "stack".
-* **Importazione Multiformato:** Sistema di parsing integrato in grado di elaborare stringhe di testo grezze, tabelle copiate dagli elenchi materiali di Litematica o file strutturati in formato JSON. Il filtro interno pulisce le stringhe ed esclude le intestazioni non rilevanti in automatico.
-* **Tracciamento Avanzato Progresso:** Gestione dinamica dei materiali disponibili rispetto a quelli totali richiesti, con visualizzazione grafica dello stato di completamento tramite barre di avanzamento grafiche.
-* **Interfaccia Grafica Moderna:** Interfaccia utente basata sul tema scuro Sun Valley con integrazione nativa degli stili di finestra Windows tramite libreria pywinstyles.
-* **Installazione Automatizzata Dipendenze:** Script di avvio con controllo integrato dei pacchetti richiesti. Se librerie esterne come Pillow, tkinterdnd2 o litemapy mancano, il sistema provvede al loro download e configurazione al primo avvio.
+* **Compilatore Matematico Minecraft-Shorthand:** Permette di inserire e sommare le quantita di blocchi usando la terminologia del gioco. Scrivendo stringhe come "1sb + 12stk + 32" il sistema calcola all'istante il totale di 2528 blocchi singoli. Il parser supporta i modificatori "sb" (Shulker Box da 1728 blocchi), "stk" o "stack" (da 64 blocchi) ed espressioni matematiche complesse.
+* **Integrazione Nativa Litematica:** Include filtri di scansione regex dedicati per riconoscere la struttura delle tabelle generate da Litematica. Pulisce il testo formattato rimuovendo i separatori grafici e isolando istantaneamente i nomi dei blocchi e le quantita necessarie.
+* **Scomposizione in Materie Prime:** Il motore interno e in grado di analizzare le ricette di crafting (shaped e shapeless). Se il progetto richiede un oggetto composto, l'applicazione puo scomporlo fino a calcolare il quantitativo esatto di materie prime fondamentali necessarie.
+* **Tracciamento Avanzato e Differenziale:** Consente di inserire i materiali gia a disposizione e calcola in tempo reale la quantita esatta di risorse mancanti, mostrando lo stato di avanzamento complessivo tramite barre di progresso grafiche integrate nell'interfaccia.
+* **Interfaccia Grafica Ottimizzata:** GUI basata sul tema scuro moderno Sun Valley con ottimizzazioni per l'ambiente desktop Windows tramite pywinstyles, garantendo una visualizzazione chiara e riposante durante le lunghe sessioni di gioco.
+* **Gestione Automatica dei Pacchetti:** Non richiede configurazioni manuali del terminale. Lo script controlla la presenza dei moduli Python necessari (Pillow, tkinterdnd2, pywinstyles, sv-ttk, litemapy) e, se mancanti, avvia un'installazione automatica trasparente al primo avvio.
+
+---
+
+## Guida all'Uso con Litematica
+
+L'applicazione e progettata per azzerare i tempi di trascrizione manuale. Di seguito viene spiegato come prelevare l'elenco dei blocchi da una costruzione e caricarlo nel programma.
+
+### 1. Estrazione della Lista dei Materiali da Litematica
+1. All'interno del tuo mondo Minecraft, apri l'interfaccia di Litematica premendo il tasto di configurazione (di default il tasto M).
+2. Accedi alla sezione **Schematic Placements** (o dal Task Manager se stai tracciando una build attiva).
+3. Individua lo schematic della tua costruzione e clicca sul pulsante **Material List**.
+4. Nella schermata che mostra la tabella di tutti i blocchi richiesti, hai due opzioni:
+   * Cliccare sul pulsante **Copy to Clipboard** in basso per copiare l'intera tabella formattata negli appunti di sistema.
+   * Cliccare sul pulsante **Dump to File** per salvare l'elenco in un file di testo con estensione `.txt` all'interno della cartella dei file di configurazione di Minecraft.
+
+### 2. Importazione ed Elaborazione nel Programma
+* **Importazione da Appunti (Clipboard):** All'interno di Minecraft Material Manager, seleziona il tuo progetto attivo e usa la funzione di importazione rapida da appunti. L'applicazione analizzera il testo, ignorera le righe di intestazione della mod (come colonne Item, Total, Missing) e inserira nel database solo i blocchi effettivi della costruzione.
+* **Importazione da File (Drag and Drop):** Prendi il file `.txt` generato dal comando "Dump to File" di Litematica e trascinalo direttamente all'interno della finestra dell'applicazione. Il modulo core/scanner.py applichera l'espressione regolare dedicata per estrarre i dati in meno di un secondo.
 
 ---
 
 ## Esempi di Calcolo del Motore di Eval
 
-Il sistema integra un parser matematico sicuro che converte la terminologia di gioco in interi e formatta i risultati finali per una lettura immediata:
+Il parser traduce in modo sicuro le stringhe matematiche ed esegue la formattazione intelligente inversa nell'interfaccia utente:
 
-| Stringa Input | Espressione Tradotta | Totale Blocchi | Formato Interfaccia |
+| Stringa di Input | Espressione Tradotta | Totale Blocchi | Formato Visualizzato |
 | :--- | :--- | :--- | :--- |
 | 1sb | 1 * 1728 | 1728 | 1SB |
 | 2stk + 10 | 2 * 64 + 10 | 138 | 2stk + 10 |
@@ -33,26 +53,26 @@ Il sistema integra un parser matematico sicuro che converte la terminologia di g
 
 ---
 
-## Architettura e Moduli del Progetto
+## Architettura del Codice
 
-Il codice e strutturato in modo modulare per garantire scalabilita e manutenzione:
+Il software e suddiviso in moduli indipendenti per facilitare lo sviluppo e l'estensione delle funzionalita:
 
-* **core/config.py:** Gestione delle configurazioni utente, file JSON e palette cromatica dell'applicazione.
-* **core/database.py:** Gestione dei dati dei progetti, calcolo dei materiali mancanti e logica di backup dei file di salvataggio.
-* **core/scanner.py:** Parser per l'elaborazione dei file di input, delle stringhe di testo e delle formule matematiche.
-* **core/utils.py:** Funzioni di utilita generale e formattazione intelligente dei blocchi.
-* **ui/components.py:** Finestre di dialogo customizzate, messaggi di errore e barre di progresso grafiche.
-* **ui/main_window.py:** Controller principale dell'interfaccia utente, gestione dei tab dei progetti e dei menu di sistema.
+* **core/config.py:** Gestione dei file di configurazione generali in formato JSON e definizione della palette cromatica scura dell'interfaccia.
+* **core/database.py:** Gestione del database interno dei progetti, tracciamento dello stato dei materiali (richiesti, disponibili, mancanti) e scomposizione delle ricette di crafting.
+* **core/scanner.py:** Motore di parsing testuale ottimizzato per l'elaborazione dei file TXT, JSON e delle stringhe tabellari di Litematica.
+* **core/utils.py:** Funzioni matematiche di utilita generale, algoritmi di calcolo delle formule Minecraft-Shorthand e regex di filtraggio.
+* **ui/components.py:** Componenti grafici riutilizzabili, finestre di dialogo personalizzate e barre di progresso basate su Canvas.
+* **ui/main_window.py:** Finestra principale dell'applicazione e gestione dei flussi logici della GUI.
 
 ---
 
-## Installazione e Requisiti
+## Installazione e Avvio
 
 ### Prerequisiti
-L'applicazione richiede l'installazione di Python versione 3.8 o superiore.
+L'applicazione richiede Python versione 3.8 o superiore installato sul sistema.
 
-### Procedura di avvio
-1. Clonare la repository in locale:
+### Procedura di Configurazione
+1. Clonare la repository o scaricare i file sorgenti in una cartella locale:
    ```bash
    git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
    cd YOUR_REPO_NAME
