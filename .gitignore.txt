@@ -1,0 +1,12 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Salvataggi e configurazioni personali dell'utente
+construction_materials.json
+*.bak
+.material_manager_config.json
+
+# Cache delle texture e immagini scaricate
+.texture_index_cache.json
+item-assets/
