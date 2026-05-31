@@ -1,23 +1,29 @@
 Minecraft Material Manager
 
-Repository Tags: minecraft litematica desktop-app python material-manager technical-minecraft sun-valley-theme
+Active Tracking and Resource Calculator for Litematica Schematics
 
 Minecraft Material Manager is a desktop application tailored specifically for the technical Minecraft community, mega-build creators, and anyone using the Litematica mod to plan their in-game structures.
 
 When managing large-scale projects, resource tracking becomes notoriously complex. While Litematica provides a complete block list, it lacks a dynamic tool to track collected items against missing ones or to calculate totals using native in-game units (Shulker Boxes and Stacks). This application bridges that gap, automating resource calculations and interfacing directly with Litematica data.
 Key Features
 
-    Minecraft-Shorthand Math Compiler: Input and aggregate block quantities using in-game terminology. Expressions like 1sb + 12stk + 32 instantly evaluate to a total of 2,528 single blocks. The parser natively supports modifiers such as sb (Shulker Box: 1,728 blocks), stk / stack (64 blocks), and complex mathematical formulas.
+    Minecraft-Shorthand Math Compiler
+    Input and aggregate block quantities using in-game terminology. Expressions like 1sb + 12stk + 32 instantly evaluate to a total of 2,528 single blocks. The parser natively supports modifiers such as sb (Shulker Box: 1,728 blocks), stk / stack (64 blocks), and complex mathematical formulas.
 
-    Native Litematica Integration: Equipped with dedicated regex scanning filters to recognize Litematica's table layouts. It cleans formatted text by stripping graphical borders, instantly isolating block names and their required quantities.
+    Native Litematica Integration
+    Equipped with dedicated regex scanning filters to recognize Litematica's table layouts. It cleans formatted text by stripping graphical borders, instantly isolating block names and their required quantities.
 
-    Raw Material Breakdown: Features an internal crafting engine capable of analyzing both shaped and shapeless recipes. If a project requires a crafted item, the application can decompose it down to its fundamental raw materials.
+    Raw Material Breakdown
+    Features an internal crafting engine capable of analyzing both shaped and shapeless recipes. If a project requires a crafted item, the application can decompose it down to its fundamental raw materials.
 
-    Advanced & Differential Tracking: Input your currently collected materials to calculate exactly what is left to gather in real time. Visual progress bars integrated into the GUI provide an instant overview of your project's status.
+    Advanced & Differential Tracking
+    Input your currently collected materials to calculate exactly what is left to gather in real time. Visual progress bars integrated into the GUI provide an instant overview of your project's status.
 
-    Optimized Graphical Interface: A modern user interface powered by the Sun Valley dark theme, featuring desktop optimizations for Windows environments via pywinstyles to ensure a clean, comfortable view during long gaming sessions.
+    Optimized Graphical Interface
+    A modern user interface powered by the Sun Valley dark theme, featuring desktop optimizations for Windows environments via pywinstyles to ensure a clean, comfortable view during long gaming sessions.
 
-    Automated Package Management: Zero manual terminal configuration required. The script automatically checks for required Python modules (Pillow, tkinterdnd2, pywinstyles, sv-ttk, litemapy) and handles background installation during the initial launch.
+    Automated Package Management
+    Zero manual terminal configuration required. The script automatically checks for required Python modules (Pillow, tkinterdnd2, pywinstyles, sv-ttk, litemapy) and handles background installation during the initial launch.
 
 Litematica Usage Guide
 
@@ -53,17 +59,14 @@ Code Architecture
 
 The codebase is split into modular components to streamline development and future expansions:
 
-    core/config.py: Handles general application configurations in JSON format and defines the dark mode color palette.
-
-    core/database.py: Manages the internal project database, tracks material states (required, available, missing), and processes recipe breakdowns.
-
-    core/scanner.py: A text-parsing engine optimized to process TXT files, JSON strings, and Litematica tabular data.
-
-    core/utils.py: Contains general math utilities, shorthand processing algorithms, and regex filters.
-
-    ui/components.py: Holds reusable UI elements, custom dialogue prompts, and Canvas-based progress bars.
-
-    ui/main_window.py: Sets up the main application window and handles core GUI logic flows.
+├── core/
+│   ├── config.py       # General configurations (JSON) and dark palette definitions
+│   ├── database.py     # Project database, tracking states, and recipe breakdown
+│   ├── scanner.py      # Text-parsing engine for TXT, JSON, and Litematica tables
+│   └── utils.py        # Math utilities, shorthand processing, and regex filters
+└── ui/
+    ├── components.py   # Reusable UI elements, custom dialogues, Canvas progress bars
+    └── main_window.py  # Main application window setup and GUI logic flows
 
 Installation & Setup
 Prerequisites
@@ -72,9 +75,13 @@ Prerequisites
 
 Configuration Steps
 
-Clone the repository or download the source files into a local folder:
+Clone the repository and launch the main application script:
 Bash
 
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
 cd YOUR_REPO_NAME
 python main.py
+
+License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
