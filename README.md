@@ -1,83 +1,80 @@
 Minecraft Material Manager
 
-Graphic User Interface for Litematica Material Lists and Shorthand Calculations.
+Repository Tags: minecraft litematica desktop-app python material-manager technical-minecraft sun-valley-theme
 
-Minecraft Material Manager is a dedicated desktop application engineered specifically for the Technical Minecraft community, mega-build creators, and players utilizing the Litematica mod to plan complex in-game structures.
+Minecraft Material Manager is a desktop application tailored specifically for the technical Minecraft community, mega-build creators, and anyone using the Litematica mod to plan their in-game structures.
 
-While Litematica excels at generating comprehensive block lists, managing those resources over large-scale projects can quickly become overwhelming. It lacks a dynamic interface to track currently gathered materials against remaining needs, nor does it naturally convert raw item counts into standard in-game metrics like Shulker Boxes and Stacks. This application fills that gap by automating resource math and integrating seamlessly with your Litematica data.
-🚀 Key Features
+When managing large-scale projects, resource tracking becomes notoriously complex. While Litematica provides a complete block list, it lacks a dynamic tool to track collected items against missing ones or to calculate totals using native in-game units (Shulker Boxes and Stacks). This application bridges that gap, automating resource calculations and interfacing directly with Litematica data.
+Key Features
 
-    📐 Minecraft-Shorthand Math Engine: Input and calculate material quantities instantly using intuitive game-specific shorthand. Typing strings like 1sb + 12stk + 32 instantly translates to exactly 2,528 individual blocks. The custom parser supports modifiers such as sb (Shulker Box / 1,728 blocks), stk or stack (64 blocks), and complex mathematical operators.
+    Minecraft-Shorthand Math Compiler: Input and aggregate block quantities using in-game terminology. Expressions like 1sb + 12stk + 32 instantly evaluate to a total of 2,528 single blocks. The parser natively supports modifiers such as sb (Shulker Box: 1,728 blocks), stk / stack (64 blocks), and complex mathematical formulas.
 
-    🔌 Native Litematica Parsing: Features custom Regex filtering engines designed to interpret and clean raw Litematica table dumps. It strips away formatting lines, borders, and UI artifacts, isolating item IDs and required quantities in milliseconds.
+    Native Litematica Integration: Equipped with dedicated regex scanning filters to recognize Litematica's table layouts. It cleans formatted text by stripping graphical borders, instantly isolating block names and their required quantities.
 
-    🌳 Crafting Tree Deconstruction: Includes an integrated crafting recipe database (supporting shaped and shapeless designs). If a schematic calls for composite items (e.g., Hoppers or Pistons), the app can break them down into their exact, base raw material requirements (Iron, Wood, Redstone).
+    Raw Material Breakdown: Features an internal crafting engine capable of analyzing both shaped and shapeless recipes. If a project requires a crafted item, the application can decompose it down to its fundamental raw materials.
 
-    📊 Real-Time Delta Tracking: Log your gathered resources on the fly. The engine updates instantly to display a precise delta (remaining materials required) paired with dynamic progress bars built directly into the UI.
+    Advanced & Differential Tracking: Input your currently collected materials to calculate exactly what is left to gather in real time. Visual progress bars integrated into the GUI provide an instant overview of your project's status.
 
-    🎨 Modern UX/UI Design: Built on a customized, dark-themed Sun Valley aesthetic with deep Win32 optimizations powered by pywinstyles. This guarantees a sleek, distraction-free environment tailored for long gaming sessions.
+    Optimized Graphical Interface: A modern user interface powered by the Sun Valley dark theme, featuring desktop optimizations for Windows environments via pywinstyles to ensure a clean, comfortable view during long gaming sessions.
 
-    🛠️ Zero-Config Dependency Management: Skip the terminal setup. Upon initial boot, the core script automatically runs an internal package audit. If required dependencies (Pillow, tkinterdnd2, pywinstyles, sv-ttk, litemapy) are missing, it safely installs them in the background.
+    Automated Package Management: Zero manual terminal configuration required. The script automatically checks for required Python modules (Pillow, tkinterdnd2, pywinstyles, sv-ttk, litemapy) and handles background installation during the initial launch.
 
-📖 Litematica Integration Guide
+Litematica Usage Guide
 
-Say goodbye to manual data entry. Here is how to seamlessly bridge your schematics directly into the manager.
-1. Exporting the Material List from Litematica
+The application is engineered to eliminate manual transcription. Follow these steps to extract material lists from your builds and import them into the program.
+1. Extracting the Material List from Litematica
 
-    Inside your Minecraft world, open the Litematica configuration menu (Default key bind: M).
+    Open the Litematica configuration menu inside Minecraft (default key: M).
 
-    Navigate to Schematic Placements (or use the Task Manager if working with an active build).
+    Navigate to Schematic Placements (or use the Task Manager if tracking an active build).
 
-    Find your desired schematic configuration and click Material List.
+    Find your schematic and click the Material List button.
 
-    At the bottom of the block overview screen, select one of two export methods:
+    From the item layout screen, choose one of two options:
 
-        Copy to Clipboard: Copies the formatted table directly to your system clipboard.
+        Click Copy to Clipboard at the bottom to copy the formatted table data.
 
-        Dump to File: Generates a .txt file containing the clean dataset within your Minecraft configurations folder.
+        Click Dump to File to save the list as a .txt file inside your Minecraft configurations directory.
 
-2. Importing into the Application
+2. Importing and Processing Data
 
-    Clipboard Swift-Import: In Minecraft Material Manager, open your active project and click the clipboard import utility. The module filters out mod-specific headers (such as Item, Total, Missing columns) and populates your project database strictly with valid blocks.
+    Clipboard Import: Select your active project inside Minecraft Material Manager and use the quick import feature. The application will scan the text, bypass mod headers (such as Item, Total, Missing columns), and save only valid block entries to the database.
 
-    Drag and Drop Files: Select the .txt document created by Litematica's "Dump to File" command and drop it anywhere into the application window. The core/scanner.py engine will process the regex and update your workspace instantly.
+    File Import (Drag and Drop): Drag your Litematica .txt dump file directly into the application window. The core/scanner.py engine will apply regex patterns to extract all block data in less than a second.
 
-🧮 Evaluation Engine Examples
+Evaluation Engine Examples
 
-The evaluation engine securely handles shorthand math expressions and applies clean reverse-formatting within the user interface:
-Input String	Parsed Expression	Total Blocks	Display Format
-1sb	1 × 1728	1728	1 SB
-2stk + 10	(2 × 64) + 10	138	2 stk + 10
-1sb + 5stk	(1 × 1728) + (5 × 64)	2048	1 SB + 5 stk
-🗂️ Project Architecture
+The evaluation parser translates short-form expressions securely and formats them cleanly back into the user interface:
+Input String	Translated Expression	Total Blocks	Formatted Output
+1sb	1 * 1728	1728	1SB
+2stk + 10	2 * 64 + 10	138	2stk + 10
+1sb + 5stk	1 * 1728 + 5 * 64	2048	1SB + 5^
+Code Architecture
 
-The software follows a highly modular layout designed for quick expansion and code readability:
-YAML
+The codebase is split into modular components to streamline development and future expansions:
 
-├── core/
-│   ├── config.py       # Global JSON preferences and dark-mode palette values
-│   ├── database.py     # Workspace management, delta tracking, and item recipe trees
-│   ├── scanner.py      # Main text parsing engine for Litematica TXT and JSON exports
-│   └── utils.py        # Shorthand math translation rules and core Regex filters
-└── ui/
-    ├── components.py   # Reusable UI widgets, dialogues, and Canvas progress bars
-    └── main_window.py  # Primary window controller and layout logic orchestration
+    core/config.py: Handles general application configurations in JSON format and defines the dark mode color palette.
 
-💻 Installation & Quickstart
+    core/database.py: Manages the internal project database, tracks material states (required, available, missing), and processes recipe breakdowns.
+
+    core/scanner.py: A text-parsing engine optimized to process TXT files, JSON strings, and Litematica tabular data.
+
+    core/utils.py: Contains general math utilities, shorthand processing algorithms, and regex filters.
+
+    ui/components.py: Holds reusable UI elements, custom dialogue prompts, and Canvas-based progress bars.
+
+    ui/main_window.py: Sets up the main application window and handles core GUI logic flows.
+
+Installation & Setup
 Prerequisites
 
-    Python 3.8 or higher must be installed on your operating system.
+    Python 3.8 or higher must be installed on your system.
 
-Getting Started
+Configuration Steps
 
-Clone the repository or download the source code package to your local machine:
+Clone the repository or download the source files into a local folder:
 Bash
 
-# Clone the repository
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-
-# Navigate to the project directory
 cd YOUR_REPO_NAME
-
-# Launch the application (missing packages will install automatically)
 python main.py
